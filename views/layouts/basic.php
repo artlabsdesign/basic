@@ -72,6 +72,25 @@ $this->beginPage();
                         'data-target' => '#modal',
                         'style' => 'cursor:pointer,outline:none'
                     ]
+            ],
+            ['label' => 'Выпадающий пункт',
+            'items'=>[
+                '<li class ="dropdown-header">Заголовок</li>',
+                '<li class = "divider"></li>',
+                [
+                    'label' => 'Ссылка',
+                    'url' => '#'
+                ]
+            ]
+            ],
+            [
+                'label' => 'Регистрация',
+                'url' => ['main/reg']
+
+            ],
+            [
+                'label' => 'Вход',
+                'url' => ['main/login']
             ]
             ],
         'encodeLabels' => false,

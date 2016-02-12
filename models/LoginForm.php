@@ -23,4 +23,12 @@ class LoginForm extends Model
             ]
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'email' => 'E-mail',
+            'password' => 'Пароль'
+        ];
+    }
 }
