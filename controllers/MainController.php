@@ -6,9 +6,10 @@ use Yii;
 use app\models\RegForm;
 use app\models\LoginForm;
 use app\models\User;
+use app\models\Profile;
 
 
-class MainController extends \yii\web\Controller
+class MainController extends BehaviorsController
 
 {
 
@@ -22,6 +23,25 @@ class MainController extends \yii\web\Controller
             [
                 'hello' => $hello
             ]);
+    }
+
+    public function actionProfile(){
+        $model =($model = Profile::findOne(Yii::$app->user->id))? $model : new Profile();
+        if($model->load(Yii::$app->request->post()) && $model->validate()):
+            if($model->updateProfile()):
+                Yii::$app->session->setFlash('success','Профиль изменен');
+            else:
+                Yii::$app->session->setFlash('error', 'Профиль не изменен');
+                Yii::error('Ошибка записи. Профиль не изменен');
+                return $this->refresh();
+        endif;
+            endif;
+        return $this->render(
+          'profile',
+            [
+                'model' => $model
+            ]
+        );
     }
 
     public function actionReg(){
@@ -51,6 +71,10 @@ class MainController extends \yii\web\Controller
     }
 
     public function actionLogin(){
+        if(!Yii::$app->user->isGuest):
+            return $this->goHome();
+        endif;
+
         $model = new LoginForm();
 
         if($model->load(Yii::$app->request->post()) && $model->login()):

@@ -58,11 +58,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'id' => 'ID',
             'email' => 'Email',
             'password' => 'Password Hash',
-            'status' => 'Status',
+            'status' => 'Статус',
             'auth_key' => 'Auth Key',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
+    }
+
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
     }
     /* Behaviors */
     

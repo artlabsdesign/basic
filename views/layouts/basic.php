@@ -97,7 +97,13 @@ $this->beginPage();
                     'label' => 'Выйти('.Yii::$app->user->identity['email'].')',
                     'url' => ['/main/logout'],
                     'linkOptions' => ['data-method'=>'post']
-                            ];
+                    ];
+                $menuItems[] = [
+                        'label' => 'Профиль',
+                        'url' => ['/main/profile'],
+                        'linkOptions' => ['data-method'=>'post']
+                    ];
+
             endif;
             
             echo Nav::widget([
