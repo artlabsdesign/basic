@@ -6,6 +6,8 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Navbar;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 
 /**
  * Created by PhpStorm.
@@ -25,14 +27,53 @@ $this->beginPage();
         <title><?= Yii::$app->name ?></title>
         <?php $this->head(); ?>
     </head>
-    <body>
+    <body style="padding-top:70px;">
             <?php $this->beginBody(); ?>
         <div class="wrap">
             <?php
             Navbar::begin([
-                'brandLabel' => 'Тестовое приложение'
+                'options' =>[
+                    'class'=>'navbar navbar-inverse navbar-fixed-top',
+                ],
+                'brandLabel' => '<img src="img/logo_small.png"></img>'
             ]);
-            ActiveForm::begin(
+            
+            if(!Yii::$app->user->isGuest): ?>
+           <!-- <div class="navbar-form navbar-right">
+                <button class = "btn btn-sm btn-default"
+                        data-container = "body"
+                        data-toggle = "popover"
+                        data-trigger ="focus"
+                        data-placement ="bottom"
+                        data-title ="<?= Yii::$app->user->identity['email']?>"
+                        data-content="<ul>
+                        <li><a href ='<?= Url::to(['/main/logout']) ?>' data-method='post'>Выход</a></li>
+                        <li><a href = '<?= Url::to(['/main/profile']) ?>' data-method='post'>Профиль</a></li>
+                        </ul>" >
+                  
+                    
+                    <span class="glyphicon glyphicon-user"></span>
+                        </button>
+            </div>-->
+
+           <div class="navbar-form navbar-right dropdown">
+                   <img src = "img/default/user.png" class="btn"
+                        style="padding:0; margin:0;"
+                           type="button" id="dropdownMenu1" 
+                           data-toggle="dropdown" 
+                           aria-haspopup="true" 
+                           aria-expanded="true"/>              
+                                  
+                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                       <li class="dropdown-header" style="font-size:16px"><?= Yii::$app->user->identity['email']?></li>
+                       <li role="separator" class="divider"></li>
+                       <li><a href="<?= Url::to(['/main/logout']) ?>" data-method="post" >Выход</a></li>  
+                       <li><a href="<?= Url::to(['/main/profile']) ?> "data-method="post" >Профиль</a></li>
+                       
+                   </ul>
+               </div>
+            <?php  endif;
+           /* ActiveForm::begin(
                     [
                         'action' => ['/main/search'],
                         'method' => 'post',
@@ -55,15 +96,12 @@ $this->beginPage();
                     ]
             );
             echo '</span></div>';
-            ActiveForm::end();
+            ActiveForm::end();*/
 
             $menuItems = [
+                
                 [
-                    'label' => 'Главная <span class="glyphicon glyphicon-home"></span>',
-                    'url' => ['/main/index']
-                ],
-                [
-                    'label' => 'О проекте <span class ="glyphicon glyphicon-question-sign"></span>',
+                    'label' => 'О системе',
                     'url' => ['#'],
                     'linkOptions' => [
                         'data-toggle' => 'modal',
@@ -71,16 +109,12 @@ $this->beginPage();
                         'style' => 'cursor:pointer,outline:none'
                     ]
                 ],
-                ['label' => 'Выпадающий пункт',
-                    'items' => [
-                        '<li class ="dropdown-header">Заголовок</li>',
-                        '<li class = "divider"></li>',
-                        [
-                            'label' => 'Ссылка',
-                            'url' => '#'
-                        ]
-                    ]
-                ]
+                ['label' => 'Новости',
+                 'url' => ['/news/index'],   
+                ],
+                 ['label' => 'На просчет',
+                 'url' => ['/main/index'],   
+                ],
             ];
 
             if(Yii::$app->user->isGuest):
@@ -92,17 +126,7 @@ $this->beginPage();
                         'label' => 'Вход',
                         'url' => ['/main/login']
                     ];
-            else:
-                $menuItems[] = [
-                    'label' => 'Выйти('.Yii::$app->user->identity['email'].')',
-                    'url' => ['/main/logout'],
-                    'linkOptions' => ['data-method'=>'post']
-                    ];
-                $menuItems[] = [
-                        'label' => 'Профиль',
-                        'url' => ['/main/profile'],
-                        'linkOptions' => ['data-method'=>'post']
-                    ];
+            
 
             endif;
             

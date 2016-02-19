@@ -43,6 +43,10 @@ $config = [
                 ],
             ],
         ],
+        'authManager' =>[
+         'class' => 'yii\rbac\DbManager',
+           'defaultRoles' => ['guest'], 
+        ],
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,
