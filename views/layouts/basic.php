@@ -7,6 +7,7 @@ use yii\bootstrap\Navbar;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 
 /**
@@ -112,8 +113,9 @@ $this->beginPage();
                 ['label' => 'Новости',
                  'url' => ['/news/index'],   
                 ],
-                 ['label' => 'На просчет',
-                 'url' => ['/main/index'],   
+                 
+                ['label' => 'Компании',
+                 'url' => ['/comp/index'],   
                 ],
             ];
 
@@ -139,7 +141,7 @@ $this->beginPage();
                 ]
             ]);
             Modal::begin([
-                'header' => 'Header',
+                'header' => 'Cистема ART-LABS поставщики v.0.1',
                 'id' => 'modal'
             ]);
             echo 'Some text';
@@ -147,7 +149,17 @@ $this->beginPage();
             NavBar::end();
             ?>
             <div class="container">
-            <?= $content ?>
+                <?php
+                echo Breadcrumbs::widget([
+                    'itemTemplate' => "<li><i>{link}</i></li>\n", // template for all links
+                    'homeLink' => [
+                        'label' => 'Главная',
+                        'url' => Yii::$app->homeUrl,
+                    ],
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]);
+                ?>
+                <?= $content ?>
             </div>
         </div>
         <footer class="footer">
