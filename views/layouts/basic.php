@@ -3,7 +3,7 @@
 use app\assets\AppAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\Modal;
-use yii\bootstrap\Navbar;
+use yii\bootstrap\NavBar;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -32,7 +32,7 @@ $this->beginPage();
             <?php $this->beginBody(); ?>
         <div class="wrap">
             <?php
-            Navbar::begin([
+            NavBar::begin([
                 'options' =>[
                     'class'=>'navbar navbar-inverse navbar-fixed-top',
                 ],

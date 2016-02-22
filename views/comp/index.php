@@ -14,10 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Добавить компанию', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+	<?php if(Yii::$app->user->can('admin')): 
+    
+      echo  '<p>'.Html::a('Добавить компанию', ['create'], ['class' => 'btn btn-success']).'</p>'; 
+   
+	 endif; ?>
     <?php 
     $actionButtons = '{view}';
     if(!Yii::$app->user->isGuest && Yii::$app->user->can('admin')):
